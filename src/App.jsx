@@ -97,7 +97,6 @@ const backgroundGradient = {
 
 // --- REUSABLE COMPONENTS ---
 
-// 1. RevealOnScroll
 const RevealOnScroll = ({ children, delay = 0 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
@@ -124,10 +123,10 @@ const RevealOnScroll = ({ children, delay = 0 }) => {
   );
 };
 
+// --- LOGO COMPONENT ---
 const Logo = () => (
-  // Increased font size for the logo to make it bigger
-  <span className="text-4xl md:text-5xl font-black tracking-tighter text-white italic relative z-50 select-none">
-    res<span className="text-red-600">.</span>
+  <span className="text-3xl md:text-4xl font-black tracking-tighter text-white italic relative z-50 select-none">
+    <span className="text-red-600">r</span>e<span className="text-red-600">s</span>
   </span>
 );
 
@@ -159,17 +158,21 @@ const MobileMenu = ({ isOpen, onClose, onOpenGetStarted }) => (
         initial={{ opacity: 0, height: 0 }}
         animate={{ opacity: 1, height: "100vh" }}
         exit={{ opacity: 0, height: 0 }}
-        className="fixed inset-0 z-[9998] bg-black/95 backdrop-blur-xl flex flex-col pt-32 px-8 overflow-hidden"
+        className="fixed inset-0 z-[9998] bg-black/95 backdrop-blur-xl flex flex-col pt-32 px-8 overflow-y-auto"
       >
-        <div className="flex flex-col space-y-8 text-2xl font-bold uppercase tracking-widest text-white">
+        <div className="flex flex-col space-y-8 text-2xl font-bold uppercase tracking-widest text-white pb-10">
           <Link to="/" onClick={onClose} className="hover:text-red-600 transition">Home</Link>
-          <Link to="/services" onClick={onClose} className="hover:text-red-600 transition">Services</Link>
-          <Link to="/agents" onClick={onClose} className="hover:text-red-600 transition">Agents</Link>
+          <div className="flex flex-col space-y-4 pl-4 border-l border-white/10">
+             <Link to="/crm" onClick={onClose} className="text-sm text-zinc-400 hover:text-red-500">CRM</Link>
+             <Link to="/website-management" onClick={onClose} className="text-sm text-zinc-400 hover:text-red-500">Website Mgmt</Link>
+             <Link to="/agents" onClick={onClose} className="text-sm text-zinc-400 hover:text-red-500">AI Agents</Link>
+          </div>
+          <Link to="/agents" onClick={onClose} className="hover:text-red-600 transition">Agents Team</Link>
           <Link to="/pricing" onClick={onClose} className="hover:text-red-600 transition">Pricing</Link>
           <Link to="/about" onClick={onClose} className="hover:text-red-600 transition">About</Link>
           <Link to="/contact" onClick={onClose} className="hover:text-red-600 transition">Contact</Link>
         </div>
-        <button onClick={() => { onClose(); onOpenGetStarted(); }} className="mt-12 w-full bg-red-600 text-white py-5 rounded-full font-black uppercase tracking-widest text-sm">
+        <button onClick={() => { onClose(); onOpenGetStarted(); }} className="mb-10 w-full bg-red-600 text-white py-5 rounded-full font-black uppercase tracking-widest text-sm shrink-0">
           Get Started
         </button>
       </motion.div>
@@ -199,7 +202,8 @@ const Navbar = ({ onOpenGetStarted }) => {
             </Link>
             <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300">
                <div className="glass-panel bg-black/95 rounded-[2rem] p-6 w-[200px] border border-white/10 text-white flex flex-col gap-4 shadow-2xl">
-                  <Link to="/services" className="hover:text-red-500 transition">All Services</Link>
+                  <Link to="/crm" className="hover:text-red-500 transition">CRM</Link>
+                  <Link to="/website-management" className="hover:text-red-500 transition">Website Management</Link>
                   <Link to="/agents" className="text-red-500 hover:text-white transition">AI Agents</Link>
                </div>
             </div>
@@ -233,19 +237,17 @@ const PageWrapper = ({ children }) => (
 const Home = () => (
   <PageWrapper>
     <main className="bg-black text-white overflow-x-hidden min-h-screen relative">
-       {/* Animated Background Blob */}
        <motion.div variants={backgroundGradient} animate="animate" className="fixed top-[-20%] right-[-10%] w-[800px] h-[800px] bg-gradient-to-br from-red-600/20 to-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-8">
+      <section className="min-h-screen flex flex-col justify-center px-6 md:px-8 py-20">
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.2 }} className="relative z-10 pt-20 lg:pt-0">
-            {/* RESTORED ORIGINAL HEADLINE */}
-            <h1 className="text-5xl md:text-7xl lg:text-[90px] font-black leading-[0.9] tracking-tighter mb-6 md:mb-8">
+          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.2 }} className="relative z-10 lg:pt-0">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-[85px] font-black leading-[0.95] tracking-tighter mb-6 md:mb-8 break-words">
               AI Employees: <br/>Your Helpers That <span className="text-red-600">Never Sleep.</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-zinc-400 max-w-md mb-8 md:mb-10 leading-relaxed">
+            <p className="text-lg md:text-xl text-zinc-100 max-w-md mb-8 md:mb-10 leading-relaxed">
               Build, grow, and scale your business with a team of autonomous agents that integrate seamlessly into your workflow.
             </p>
             
@@ -263,9 +265,7 @@ const Home = () => (
             </div>
           </motion.div>
           
-          {/* UPDATED HERO VIDEO: Corrected Alignment & Cropping */}
           <div className="relative flex justify-center items-center mt-10 lg:mt-0">
-            {/* Made container larger (max-w-lg) to align better with text */}
             <div className="w-full max-w-lg aspect-[4/5] lg:aspect-square rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl relative z-10">
                <video 
                  autoPlay 
@@ -273,16 +273,13 @@ const Home = () => (
                  muted 
                  playsInline 
                  className="w-full h-full object-cover"
-                 // THIS IS THE FIX: Shifts the video 75% to the right, cropping the left side text
                  style={{ objectPosition: "75% center" }}
                >
                  <source src="/animation homepage.mp4" type="video/mp4" />
                  Your browser does not support the video tag.
                </video>
-               {/* Optional overlay for style */}
                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
             </div>
-            {/* Background Glow */}
             <div className="absolute inset-0 bg-red-600/20 blur-[100px] -z-10 rounded-full" />
           </div>
         </div>
@@ -293,11 +290,10 @@ const Home = () => (
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
           <RevealOnScroll>
              <h2 className="text-4xl md:text-6xl font-black mb-6 md:mb-8 italic tracking-tighter leading-none">Automates work. <br/>Even while you sleep.</h2>
-             <p className="text-zinc-400 text-base md:text-lg mb-8">Let your AI team handle social media posts, customer support tickets, and data entry while you focus on high-level strategy.</p>
+             <p className="text-zinc-100 text-base md:text-lg mb-8">Let your AI team handle social media posts, customer support tickets, and data entry while you focus on high-level strategy.</p>
           </RevealOnScroll>
           <RevealOnScroll delay={0.2}>
-            <div className="glass-panel p-6 md:p-8 rounded-[2.5rem] border border-white/5 bg-purple-600/5 flex items-center gap-6">
-                 {/* Feature Video Animation - FIX: Made square and centered */}
+            <div className="glass-panel p-6 md:p-8 rounded-[2.5rem] border border-white/5 bg-red-600/5 flex items-center gap-6">
                  <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden border border-white/10 bg-zinc-800 flex-shrink-0 relative">
                     <video 
                       autoPlay 
@@ -305,14 +301,14 @@ const Home = () => (
                       muted 
                       playsInline 
                       className="w-full h-full object-cover"
-                      style={{ objectPosition: 'center' }} // Force center alignment
+                      style={{ objectPosition: 'center' }} 
                     >
                       <source src="/blonde girl animation.mp4" type="video/mp4" />
                     </video>
                  </div>
                  
                  <div>
-                    <h4 className="font-bold text-purple-400 mb-1 text-sm md:text-base">Sarah is typing...</h4>
+                    <h4 className="font-bold text-red-500 mb-1 text-sm md:text-base">Sarah is typing...</h4>
                     <p className="text-white text-lg md:text-2xl font-black italic">"I've scheduled your posts for next week!"</p>
                  </div>
             </div>
@@ -362,42 +358,40 @@ const ServicesPage = () => (
       <RevealOnScroll>
         <div className="text-center mb-16 md:mb-24">
           <h1 className="text-5xl md:text-7xl font-black mb-4 italic tracking-tighter">Our Services</h1>
-          <p className="text-zinc-500 text-lg max-w-2xl mx-auto">Comprehensive solutions to automate your workflow.</p>
+          <p className="text-zinc-100 text-lg max-w-2xl mx-auto">Comprehensive solutions to automate your workflow.</p>
         </div>
       </RevealOnScroll>
 
-      <motion.div variants={containerStagger} initial="hidden" animate="show" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        <motion.div variants={itemStagger} className="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500">
-          <h3 className="text-2xl md:text-3xl font-bold mb-4">CRM & Automation</h3>
-          <p className="text-zinc-500 mb-6">Connect your entire sales pipeline with automated follow-ups.</p>
-        </motion.div>
+      <motion.div variants={containerStagger} initial="hidden" animate="show" className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
         
-        <motion.a 
-          href="https://yourwebsite.com" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          variants={itemStagger}
-          className="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:bg-zinc-800 transition duration-500 cursor-pointer group block"
-        >
-          <div className="flex justify-between items-start">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4 group-hover:text-red-500 transition">Website Development</h3>
-            <span className="text-2xl transform group-hover:translate-x-2 group-hover:-translate-y-2 transition">↗</span>
-          </div>
-          <p className="text-zinc-500">Visit our main site to see our development portfolio.</p>
-        </motion.a>
+        <Link to="/crm">
+          <motion.div variants={itemStagger} className="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500 h-full group">
+            <div className="flex justify-between items-start">
+                <h3 className="text-2xl md:text-3xl font-bold mb-4 group-hover:text-red-500 transition">CRM</h3>
+                <span className="text-2xl transform group-hover:translate-x-2 transition">→</span>
+            </div>
+            <p className="text-zinc-100 mb-6">Connect your entire sales pipeline with automated follow-ups.</p>
+          </motion.div>
+        </Link>
+        
+        <Link to="/website-management">
+          <motion.div variants={itemStagger} className="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500 h-full group">
+            <div className="flex justify-between items-start">
+                <h3 className="text-2xl md:text-3xl font-bold mb-4 group-hover:text-red-500 transition">Website Management</h3>
+                <span className="text-2xl transform group-hover:translate-x-2 transition">→</span>
+            </div>
+            <p className="text-zinc-100 mb-6">Full stack development and maintenance for your digital presence.</p>
+          </motion.div>
+        </Link>
 
-        <motion.div variants={itemStagger} className="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500">
-          <h3 className="text-2xl md:text-3xl font-bold mb-4">Management Systems</h3>
-          <p className="text-zinc-500">Organize your internal team structure with AI oversight.</p>
-        </motion.div>
-
+        {/* AI Agents */}
         <Link to="/agents">
-          <motion.div variants={itemStagger} className="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500 hover:bg-red-600/5 transition duration-500 cursor-pointer group h-full">
+          <motion.div variants={itemStagger} className="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500 h-full group">
              <div className="flex justify-between items-start">
-                <h3 className="text-2xl md:text-3xl font-bold mb-4 group-hover:text-red-500 transition">AI Custom Agents</h3>
+                <h3 className="text-2xl md:text-3xl font-bold mb-4 group-hover:text-red-500 transition">AI Agents</h3>
                 <span className="text-2xl transform group-hover:translate-x-2 transition">→</span>
              </div>
-             <p className="text-zinc-500 group-hover:text-zinc-400">Meet our specialized team of AI employees ready to work for you.</p>
+             <p className="text-zinc-100 group-hover:text-zinc-100">Meet our specialized team of AI employees ready to work for you.</p>
           </motion.div>
         </Link>
       </motion.div>
@@ -435,58 +429,58 @@ const PricingPage = () => {
         </RevealOnScroll>
         
         <motion.div variants={containerStagger} initial="hidden" animate="show" className="grid md:grid-cols-3 gap-8 items-end max-w-6xl mx-auto">
-          {/* Card 1: 1 Month */}
-          <motion.div variants={itemStagger} className="glass-panel bg-black rounded-[2rem] border border-white/10 overflow-hidden relative group p-8 transition-all duration-300 hover:border-blue-500 hover:shadow-[0_0_50px_rgba(59,130,246,0.2)] hover:scale-105 hover:z-20 hover:bg-zinc-900">
+          {/* Card 1 */}
+          <motion.div variants={itemStagger} className="glass-panel bg-black rounded-[2rem] border border-white/10 overflow-hidden relative group p-8 transition-all duration-300 hover:border-red-600 hover:shadow-[0_0_50px_rgba(220,38,38,0.2)] hover:scale-105 hover:z-20 hover:bg-zinc-900">
             <AgentGroup />
             <div className="text-left mt-4 border-t border-white/10 pt-6">
               <div className="flex justify-between items-center mb-2">
                  <h3 className="text-lg font-bold text-white">1-month plan</h3>
-                 <span className="bg-zinc-800 text-xs py-1 px-2 rounded-lg text-zinc-400 group-hover:bg-blue-500/20 group-hover:text-blue-400 transition-colors">Save 50%</span>
+                 <span className="bg-zinc-800 text-xs py-1 px-2 rounded-lg text-zinc-400 group-hover:bg-red-600/20 group-hover:text-red-400 transition-colors">Save 50%</span>
               </div>
               <div className="flex items-baseline gap-2 mb-8">
                 <span className="text-zinc-600 text-xl line-through decoration-red-500 decoration-2 font-bold">$97</span>
                 <span className="text-4xl font-black text-white">$48.50<span className="text-sm text-zinc-500 font-normal">/mo</span></span>
               </div>
-              <button onClick={() => goToCheckout('1-Month')} className="w-full py-4 rounded-full border border-white/20 transition-all duration-300 font-bold text-sm uppercase tracking-widest mb-6 group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white group-hover:shadow-lg">Get Res</button>
+              <button onClick={() => goToCheckout('1-Month')} className="w-full py-4 rounded-full border border-white/20 transition-all duration-300 font-bold text-sm uppercase tracking-widest mb-6 group-hover:bg-red-600 group-hover:border-red-600 group-hover:text-white group-hover:shadow-lg">Get Res</button>
               <div className="flex items-center gap-2 justify-center text-[10px] text-zinc-500 uppercase tracking-widest font-bold">
                  <span>✓</span> 14-day money-back guarantee
               </div>
             </div>
           </motion.div>
 
-          {/* Card 2: 12 Month (Most Popular) */}
-          <motion.div variants={itemStagger} className="bg-zinc-900 rounded-[2rem] border-2 border-blue-500 overflow-hidden relative group p-8 shadow-[0_0_50px_rgba(59,130,246,0.2)] transform scale-105 z-10">
-            <div className="absolute top-0 left-0 w-full bg-blue-500 text-white text-center text-xs font-bold uppercase tracking-widest py-2">Most Popular</div>
+          {/* Card 2 (Most Popular) */}
+          <motion.div variants={itemStagger} className="bg-zinc-900 rounded-[2rem] border-2 border-red-600 overflow-hidden relative group p-8 shadow-[0_0_50px_rgba(220,38,38,0.2)] transform scale-105 z-10">
+            <div className="absolute top-0 left-0 w-full bg-red-600 text-white text-center text-xs font-bold uppercase tracking-widest py-2">Most Popular</div>
             <div className="mt-8"><AgentGroup /></div>
             <div className="text-left mt-4 border-t border-white/10 pt-6">
               <div className="flex justify-between items-center mb-2">
                  <h3 className="text-lg font-bold text-white">12-month plan</h3>
-                 <span className="bg-blue-500/20 text-blue-400 text-xs py-1 px-2 rounded-lg font-bold">Save 70%</span>
+                 <span className="bg-red-600/20 text-red-400 text-xs py-1 px-2 rounded-lg font-bold">Save 70%</span>
               </div>
               <div className="flex items-baseline gap-2 mb-8">
                 <span className="text-zinc-500 text-xl line-through decoration-red-500 decoration-2 font-bold">$52</span>
                 <span className="text-5xl font-black text-white">$15.60<span className="text-sm text-zinc-500 font-normal">/mo</span></span>
               </div>
-              <button onClick={() => goToCheckout('12-Month')} className="w-full py-4 rounded-full bg-blue-600 text-white hover:bg-blue-500 transition font-bold text-sm uppercase tracking-widest mb-6 shadow-lg shadow-blue-600/30">Get Res</button>
+              <button onClick={() => goToCheckout('12-Month')} className="w-full py-4 rounded-full bg-red-600 text-white hover:bg-red-500 transition font-bold text-sm uppercase tracking-widest mb-6 shadow-lg shadow-red-600/30">Get Res</button>
               <div className="flex items-center gap-2 justify-center text-[10px] text-zinc-500 uppercase tracking-widest font-bold">
                  <span>✓</span> 14-day money-back guarantee
               </div>
             </div>
           </motion.div>
 
-          {/* Card 3: 3 Month */}
-          <motion.div variants={itemStagger} className="glass-panel bg-black rounded-[2rem] border border-white/10 overflow-hidden relative group p-8 transition-all duration-300 hover:border-blue-500 hover:shadow-[0_0_50px_rgba(59,130,246,0.2)] hover:scale-105 hover:z-20 hover:bg-zinc-900">
+          {/* Card 3 */}
+          <motion.div variants={itemStagger} className="glass-panel bg-black rounded-[2rem] border border-white/10 overflow-hidden relative group p-8 transition-all duration-300 hover:border-red-600 hover:shadow-[0_0_50px_rgba(220,38,38,0.2)] hover:scale-105 hover:z-20 hover:bg-zinc-900">
             <AgentGroup />
             <div className="text-left mt-4 border-t border-white/10 pt-6">
               <div className="flex justify-between items-center mb-2">
                  <h3 className="text-lg font-bold text-white">3-month plan</h3>
-                 <span className="bg-zinc-800 text-xs py-1 px-2 rounded-lg text-zinc-400 group-hover:bg-blue-500/20 group-hover:text-blue-400 transition-colors">Save 60%</span>
+                 <span className="bg-zinc-800 text-xs py-1 px-2 rounded-lg text-zinc-400 group-hover:bg-red-600/20 group-hover:text-red-400 transition-colors">Save 60%</span>
               </div>
               <div className="flex items-baseline gap-2 mb-8">
                 <span className="text-zinc-600 text-xl line-through decoration-red-500 decoration-2 font-bold">$59</span>
                 <span className="text-4xl font-black text-white">$23.60<span className="text-sm text-zinc-500 font-normal">/mo</span></span>
               </div>
-              <button onClick={() => goToCheckout('3-Month')} className="w-full py-4 rounded-full border border-white/20 transition-all duration-300 font-bold text-sm uppercase tracking-widest mb-6 group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white group-hover:shadow-lg">Get Res</button>
+              <button onClick={() => goToCheckout('3-Month')} className="w-full py-4 rounded-full border border-white/20 transition-all duration-300 font-bold text-sm uppercase tracking-widest mb-6 group-hover:bg-red-600 group-hover:border-red-600 group-hover:text-white group-hover:shadow-lg">Get Res</button>
               <div className="flex items-center gap-2 justify-center text-[10px] text-zinc-500 uppercase tracking-widest font-bold">
                  <span>✓</span> 14-day money-back guarantee
               </div>
@@ -498,6 +492,118 @@ const PricingPage = () => {
   );
 };
 
+// --- UPDATED ABOUT PAGE (Pushes image below fold) ---
+const AboutPage = () => (
+  <PageWrapper>
+    <div className="bg-black text-white min-h-screen">
+      <div className="min-h-[90vh] flex flex-col items-center justify-center px-6 md:px-8 pt-20">
+        <RevealOnScroll>
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-8xl font-black mb-8 italic tracking-tighter">We build the <br/> workforce of the future.</h1>
+            <span className="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-red-400">Our Story</span>
+          </div>
+        </RevealOnScroll>
+      </div>
+
+      <div className="px-6 md:px-8 pb-32">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <RevealOnScroll delay={0.2}>
+            <div className="rounded-[3rem] overflow-hidden border border-white/10 h-[400px] md:h-[500px]">
+              <img src="/lady_agent_2-removebg-preview.png" alt="Vision" className="w-full h-full object-cover object-top bg-zinc-900/50" />
+            </div>
+          </RevealOnScroll>
+          <RevealOnScroll delay={0.4}>
+            <div>
+              <h3 className="text-3xl md:text-4xl font-bold mb-6">Why we exist</h3>
+              <p className="text-zinc-100 text-lg mb-6 leading-relaxed">
+                Traditional hiring is slow, expensive, and limited by geography. Res provides instant access to top-tier AI talent that is trained, compliant, and ready to work from day one.
+              </p>
+            </div>
+          </RevealOnScroll>
+        </div>
+      </div>
+    </div>
+  </PageWrapper>
+);
+
+const FAQPage = () => (
+  <PageWrapper>
+    <div className="pt-32 pb-20 px-6 md:px-8 max-w-3xl mx-auto min-h-screen text-white">
+      <h1 className="text-5xl md:text-6xl font-black mb-16 italic tracking-tighter text-center">Questions?</h1>
+      <motion.div variants={containerStagger} initial="hidden" animate="show" className="space-y-6">
+        {FAQS.map((item, i) => (
+          <motion.div 
+            key={i} 
+            variants={itemStagger}
+            className="group bg-zinc-900/50 border border-white/5 rounded-[2rem] p-6 md:p-8 hover:border-red-600/30 transition duration-300"
+          >
+            <h3 className="text-lg md:text-xl font-bold mb-3 group-hover:text-red-500 transition">{item.q}</h3>
+            <p className="text-zinc-100 text-sm md:text-base leading-relaxed">{item.a}</p>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
+  </PageWrapper>
+);
+
+const ContactPage = () => (
+  <PageWrapper>
+    <div className="pt-32 pb-20 px-6 md:px-8 max-w-7xl mx-auto min-h-screen text-white">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <RevealOnScroll>
+          <div>
+            <h1 className="text-5xl md:text-7xl font-black mb-8 italic tracking-tighter">Let's build <br/>your team.</h1>
+            <p className="text-zinc-100 text-lg mb-8">Ready to automate? Fill out the form and our onboarding AI will reach out instantly.</p>
+            <div className="space-y-4 text-zinc-100">
+              <p>hello@res.ai</p>
+              <p>+1 (555) 000-0000</p>
+            </div>
+          </div>
+        </RevealOnScroll>
+        
+        <RevealOnScroll delay={0.3}>
+          <form className="glass-panel p-6 md:p-10 rounded-[2.5rem] border border-white/10 bg-zinc-900">
+            <div className="space-y-6">
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Name</label>
+                <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-red-600 transition" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Email</label>
+                <input type="email" className="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-red-600 transition" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Message</label>
+                <textarea rows="4" className="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-red-600 transition"></textarea>
+              </div>
+              <button className="w-full bg-white text-black py-4 rounded-full font-bold uppercase tracking-widest hover:bg-zinc-200 transition">Send Message</button>
+            </div>
+          </form>
+        </RevealOnScroll>
+      </div>
+    </div>
+  </PageWrapper>
+);
+
+// --- NEW PAGES FOR SERVICES ---
+const CRMPage = () => (
+  <PageWrapper>
+    <div className="pt-32 pb-20 px-6 md:px-8 max-w-7xl mx-auto min-h-screen text-white">
+      <h1 className="text-5xl font-black mb-8 italic tracking-tighter">CRM Solutions</h1>
+      <p className="text-zinc-100 text-lg max-w-3xl">Our CRM systems integrate seamlessly with your existing workflow, ensuring no lead is left behind.</p>
+    </div>
+  </PageWrapper>
+);
+
+const WebsiteManagementPage = () => (
+  <PageWrapper>
+    <div className="pt-32 pb-20 px-6 md:px-8 max-w-7xl mx-auto min-h-screen text-white">
+      <h1 className="text-5xl font-black mb-8 italic tracking-tighter">Website Management</h1>
+      <p className="text-zinc-100 text-lg max-w-3xl">From maintenance to full-stack development, we keep your digital presence pristine.</p>
+    </div>
+  </PageWrapper>
+);
+
 const CheckoutPage = () => {
   const location = useLocation();
   const selectedPlan = location.state?.plan || "Selected Plan";
@@ -507,8 +613,6 @@ const CheckoutPage = () => {
        <div className="pt-32 pb-20 px-6 md:px-8 max-w-3xl mx-auto min-h-screen text-white">
           <RevealOnScroll>
             <div className="text-center mb-12">
-              {/* Replaced text-based logo with larger logo image */}
-              <img src="/logo.png" alt="res logo" className="w-32 h-auto mx-auto mb-6" />
               <h1 className="text-4xl md:text-5xl font-black italic tracking-tighter mb-4">Complete your order</h1>
               <p className="text-zinc-500">You are purchasing the <span className="text-white font-bold">{selectedPlan}</span>.</p>
             </div>
@@ -563,94 +667,6 @@ const CheckoutPage = () => {
   );
 };
 
-const AboutPage = () => (
-  <PageWrapper>
-    <div className="pt-32 pb-20 px-6 md:px-8 bg-black text-white min-h-screen">
-      <RevealOnScroll>
-        <div className="max-w-4xl mx-auto text-center mb-20 md:mb-32">
-          <span className="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/10 text-[10px] font-bold uppercase tracking-widest mb-6 text-red-400">Our Story</span>
-          <h1 className="text-5xl md:text-8xl font-black mb-8 italic tracking-tighter">We build the <br/> workforce of the future.</h1>
-        </div>
-      </RevealOnScroll>
-
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-32">
-        <RevealOnScroll delay={0.2}>
-          <div className="rounded-[3rem] overflow-hidden border border-white/10 h-[400px] md:h-[500px]">
-            <img src="/lady_agent_2-removebg-preview.png" alt="Vision" className="w-full h-full object-cover object-top bg-zinc-900/50" />
-          </div>
-        </RevealOnScroll>
-        <RevealOnScroll delay={0.4}>
-          <div>
-            <h3 className="text-3xl md:text-4xl font-bold mb-6">Why we exist</h3>
-            <p className="text-zinc-500 text-lg mb-6 leading-relaxed">
-              Traditional hiring is slow, expensive, and limited by geography. Res provides instant access to top-tier AI talent that is trained, compliant, and ready to work from day one.
-            </p>
-          </div>
-        </RevealOnScroll>
-      </div>
-    </div>
-  </PageWrapper>
-);
-
-const FAQPage = () => (
-  <PageWrapper>
-    <div className="pt-32 pb-20 px-6 md:px-8 max-w-3xl mx-auto min-h-screen text-white">
-      <h1 className="text-5xl md:text-6xl font-black mb-16 italic tracking-tighter text-center">Questions?</h1>
-      <motion.div variants={containerStagger} initial="hidden" animate="show" className="space-y-6">
-        {FAQS.map((item, i) => (
-          <motion.div 
-            key={i} 
-            variants={itemStagger}
-            className="group bg-zinc-900/50 border border-white/5 rounded-[2rem] p-6 md:p-8 hover:border-red-600/30 transition duration-300"
-          >
-            <h3 className="text-lg md:text-xl font-bold mb-3 group-hover:text-red-500 transition">{item.q}</h3>
-            <p className="text-zinc-500 text-sm md:text-base leading-relaxed">{item.a}</p>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  </PageWrapper>
-);
-
-const ContactPage = () => (
-  <PageWrapper>
-    <div className="pt-32 pb-20 px-6 md:px-8 max-w-7xl mx-auto min-h-screen text-white">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <RevealOnScroll>
-          <div>
-            <h1 className="text-5xl md:text-7xl font-black mb-8 italic tracking-tighter">Let's build <br/>your team.</h1>
-            <p className="text-zinc-500 text-lg mb-8">Ready to automate? Fill out the form and our onboarding AI will reach out instantly.</p>
-            <div className="space-y-4 text-zinc-400">
-              <p>hello@res.ai</p>
-              <p>+1 (555) 000-0000</p>
-            </div>
-          </div>
-        </RevealOnScroll>
-        
-        <RevealOnScroll delay={0.3}>
-          <form className="glass-panel p-6 md:p-10 rounded-[2.5rem] border border-white/10 bg-zinc-900">
-            <div className="space-y-6">
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Name</label>
-                <input type="text" className="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-red-600 transition" />
-              </div>
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Email</label>
-                <input type="email" className="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-red-600 transition" />
-              </div>
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Message</label>
-                <textarea rows="4" className="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-red-600 transition"></textarea>
-              </div>
-              <button className="w-full bg-white text-black py-4 rounded-full font-bold uppercase tracking-widest hover:bg-zinc-200 transition">Send Message</button>
-            </div>
-          </form>
-        </RevealOnScroll>
-      </div>
-    </div>
-  </PageWrapper>
-);
-
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -680,12 +696,11 @@ function AppContent() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          {/* New Service Routes */}
+          <Route path="/crm" element={<CRMPage />} />
+          <Route path="/website-management" element={<WebsiteManagementPage />} />
         </Routes>
       </AnimatePresence>
-
-      <footer className="py-12 border-t border-white/5 text-center text-zinc-600 text-xs uppercase font-bold tracking-widest relative z-10 bg-black">
-        <p>© 2024 res ai systems. All rights reserved.</p>
-      </footer>
     </div>
   );
 }
