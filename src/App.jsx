@@ -585,21 +585,112 @@ const ContactPage = () => (
   </PageWrapper>
 );
 
-// --- NEW PAGES FOR SERVICES ---
+// --- UPDATED: CRM PAGE WITH CONTENT ---
 const CRMPage = () => (
   <PageWrapper>
     <div className="pt-32 pb-20 px-6 md:px-8 max-w-7xl mx-auto min-h-screen text-white">
-      <h1 className="text-5xl font-black mb-8 italic tracking-tighter">CRM Solutions</h1>
-      <p className="text-zinc-100 text-lg max-w-3xl">Our CRM systems integrate seamlessly with your existing workflow, ensuring no lead is left behind.</p>
+      <RevealOnScroll>
+        <div className="text-center mb-16 md:mb-24 max-w-4xl mx-auto">
+          <span className="inline-block py-1 px-3 rounded-full bg-red-600/10 border border-red-600/20 text-[10px] font-bold uppercase tracking-widest mb-6 text-red-500">Intelligent Pipelines</span>
+          <h1 className="text-5xl md:text-7xl font-black mb-8 italic tracking-tighter">CRM Solutions that <span className="text-red-600">Close Deals.</span></h1>
+          <p className="text-zinc-100 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            Stop losing leads to slow responses. Our AI-powered CRM systems integrate seamlessly with your workflow, ensuring every opportunity is captured, nurtured, and converted automatically.
+          </p>
+        </div>
+      </RevealOnScroll>
+
+      <motion.div variants={containerStagger} initial="hidden" animate="show" className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+        {/* Feature 1 */}
+        <motion.div variants={itemStagger} className="glass-panel p-8 md:p-10 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500 relative overflow-hidden group">
+          <div className="text-red-600/10 absolute -top-10 -right-10 text-[150px] font-black italic select-none group-hover:text-red-600/20 transition">01</div>
+          <h3 className="text-2xl font-bold mb-4 relative z-10">Automated Outreach</h3>
+          <p className="text-zinc-100 relative z-10 leading-relaxed">Forget manual follow-ups. Our agents send personalized emails and texts instantly when a lead enters your pipeline, keeping them engaged 24/7.</p>
+        </motion.div>
+        {/* Feature 2 */}
+        <motion.div variants={itemStagger} className="glass-panel p-8 md:p-10 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500 relative overflow-hidden group">
+          <div className="text-red-600/10 absolute -top-10 -right-10 text-[150px] font-black italic select-none group-hover:text-red-600/20 transition">02</div>
+          <h3 className="text-2xl font-bold mb-4 relative z-10">Smart Lead Scoring</h3>
+          <p className="text-zinc-100 relative z-10 leading-relaxed">AI analyzes prospect behavior to prioritize your hottest leads. Focus your human team's energy only on people ready to buy right now.</p>
+        </motion.div>
+        {/* Feature 3 */}
+        <motion.div variants={itemStagger} className="glass-panel p-8 md:p-10 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500 relative overflow-hidden group">
+           <div className="text-red-600/10 absolute -top-10 -right-10 text-[150px] font-black italic select-none group-hover:text-red-600/20 transition">03</div>
+          <h3 className="text-2xl font-bold mb-4 relative z-10">Seamless Integration</h3>
+          <p className="text-zinc-100 relative z-10 leading-relaxed">Works where you work. Connects flawlessly with Slack, Gmail, Outlook, HubSpot, and Salesforce without disrupting your current operations.</p>
+        </motion.div>
+        {/* Feature 4 */}
+        <motion.div variants={itemStagger} className="glass-panel p-8 md:p-10 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500 relative overflow-hidden group">
+           <div className="text-red-600/10 absolute -top-10 -right-10 text-[150px] font-black italic select-none group-hover:text-red-600/20 transition">04</div>
+          <h3 className="text-2xl font-bold mb-4 relative z-10">Visual Pipeline & Analytics</h3>
+          <p className="text-zinc-100 relative z-10 leading-relaxed">Get a clear bird's-eye view of your sales funnel. Track performance, identify bottlenecks, and forecast revenue with real-time data dashboards.</p>
+        </motion.div>
+      </motion.div>
+
+      <RevealOnScroll>
+        <div className="glass-panel p-10 md:p-16 rounded-[3rem] border border-white/10 bg-zinc-900 text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-red-600/10 blur-[100px] -z-10 pointer-events-none"></div>
+           <h2 className="text-3xl md:text-5xl font-black italic tracking-tighter mb-6">Ready to upgrade your sales stack?</h2>
+           <p className="text-zinc-100 text-lg mb-8 max-w-xl mx-auto">Book a demo today and see how our AI CRM can double your conversion rates.</p>
+           <Link to="/contact">
+             <button className="bg-red-600 text-white px-10 py-5 rounded-full text-sm font-bold shadow-2xl shadow-red-500/20 uppercase tracking-widest hover:bg-red-700 transition hover:scale-105 active:scale-95">Get Started Now</button>
+           </Link>
+        </div>
+      </RevealOnScroll>
     </div>
   </PageWrapper>
 );
 
+// --- UPDATED: WEBSITE MANAGEMENT PAGE WITH CONTENT ---
 const WebsiteManagementPage = () => (
   <PageWrapper>
     <div className="pt-32 pb-20 px-6 md:px-8 max-w-7xl mx-auto min-h-screen text-white">
-      <h1 className="text-5xl font-black mb-8 italic tracking-tighter">Website Management</h1>
-      <p className="text-zinc-100 text-lg max-w-3xl">From maintenance to full-stack development, we keep your digital presence pristine.</p>
+      <RevealOnScroll>
+        <div className="text-center mb-16 md:mb-24 max-w-4xl mx-auto">
+        <span className="inline-block py-1 px-3 rounded-full bg-red-600/10 border border-red-600/20 text-[10px] font-bold uppercase tracking-widest mb-6 text-red-500">Digital Presence</span>
+          <h1 className="text-5xl md:text-7xl font-black mb-8 italic tracking-tighter">Website Management & <span className="text-red-600">Growth.</span></h1>
+          <p className="text-zinc-100 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            Your website is your most important employee. We ensure it's fast, secure, and constantly evolving with full-stack development and proactive maintenance.
+          </p>
+        </div>
+      </RevealOnScroll>
+
+       <motion.div variants={containerStagger} initial="hidden" animate="show" className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+        {/* Feature 1 */}
+        <motion.div variants={itemStagger} className="glass-panel p-8 md:p-10 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500 relative overflow-hidden group">
+          <div className="text-red-600/10 absolute -top-10 -right-10 text-[150px] font-black italic select-none group-hover:text-red-600/20 transition">01</div>
+          <h3 className="text-2xl font-bold mb-4 relative z-10">24/7 Uptime & Security Monitoring</h3>
+          <p className="text-zinc-100 relative z-10 leading-relaxed">We watch your site so you don't have to. Instant alerts for downtime and proactive defense against security threats and vulnerabilities.</p>
+        </motion.div>
+        {/* Feature 2 */}
+        <motion.div variants={itemStagger} className="glass-panel p-8 md:p-10 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500 relative overflow-hidden group">
+          <div className="text-red-600/10 absolute -top-10 -right-10 text-[150px] font-black italic select-none group-hover:text-red-600/20 transition">02</div>
+          <h3 className="text-2xl font-bold mb-4 relative z-10">Performance & Speed Optimization</h3>
+          <p className="text-zinc-100 relative z-10 leading-relaxed">A slow site kills conversions. We continuously optimize images, code, and server response times to ensure lightning-fast loading for global visitors.</p>
+        </motion.div>
+        {/* Feature 3 */}
+        <motion.div variants={itemStagger} className="glass-panel p-8 md:p-10 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500 relative overflow-hidden group">
+           <div className="text-red-600/10 absolute -top-10 -right-10 text-[150px] font-black italic select-none group-hover:text-red-600/20 transition">03</div>
+          <h3 className="text-2xl font-bold mb-4 relative z-10">Full-Stack Custom Development</h3>
+          <p className="text-zinc-100 relative z-10 leading-relaxed">Need a new feature? Our team handles everything from front-end React interfaces to complex back-end Node.js integrations and database management.</p>
+        </motion.div>
+        {/* Feature 4 */}
+        <motion.div variants={itemStagger} className="glass-panel p-8 md:p-10 rounded-[2.5rem] border border-white/10 bg-zinc-900/50 hover:border-red-500/50 transition duration-500 relative overflow-hidden group">
+           <div className="text-red-600/10 absolute -top-10 -right-10 text-[150px] font-black italic select-none group-hover:text-red-600/20 transition">04</div>
+          <h3 className="text-2xl font-bold mb-4 relative z-10">Content Updates & SEO</h3>
+          <p className="text-zinc-100 relative z-10 leading-relaxed">Keep your site fresh without lifting a finger. We handle routine content updates and ensure technical SEO best practices are always met.</p>
+        </motion.div>
+      </motion.div>
+
+      <RevealOnScroll>
+        <div className="glass-panel p-10 md:p-16 rounded-[3rem] border border-white/10 bg-zinc-900 text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-red-600/10 blur-[100px] -z-10 pointer-events-none"></div>
+           <h2 className="text-3xl md:text-5xl font-black italic tracking-tighter mb-6">Ensure your digital storefront never closes.</h2>
+           <p className="text-zinc-100 text-lg mb-8 max-w-xl mx-auto">Let our team handle the technical headaches so you can focus on growing your business.</p>
+           <Link to="/contact">
+             <button className="bg-red-600 text-white px-10 py-5 rounded-full text-sm font-bold shadow-2xl shadow-red-500/20 uppercase tracking-widest hover:bg-red-700 transition hover:scale-105 active:scale-95">Contact Us</button>
+           </Link>
+        </div>
+      </RevealOnScroll>
     </div>
   </PageWrapper>
 );
